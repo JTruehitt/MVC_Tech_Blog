@@ -5,6 +5,9 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3018;
 
+//! imported models so tables would be synced. check to see if this is needed once routes are established
+const Models = require('./models')
+
 const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
 
