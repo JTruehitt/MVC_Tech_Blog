@@ -1,0 +1,27 @@
+{
+  "name": "mvc_tech_blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JTruehitt/MVC_Tech_Blog.git"
+  },
+  "keywords": [],
+  "author": "Jon Truehitt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JTruehitt/MVC_Tech_Blog/issues"
+  },
+  "homepage": "https://github.com/JTruehitt/MVC_Tech_Blog#readme",
+  "dependencies": {
+    "connect-session-sequelize": "^7.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
