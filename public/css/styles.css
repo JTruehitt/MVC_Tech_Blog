@@ -1,0 +1,10 @@
+/* HOME */
+
+.post-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-text {
+    font-size: 80%;
+}

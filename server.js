@@ -5,8 +5,9 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3018;
 
-//! imported models so tables would be synced. check to see if this is needed once routes are established
-const Models = require('./models')
+const router = require('./controllers/index')
+// //! imported models so tables would be synced. check to see if this is needed once routes are established
+// const Models = require('./models')
 
 const exphbs = require("express-handlebars");
 const hbs = exphbs.create({});
@@ -23,6 +24,10 @@ app.use(express.json());
 // setting connection to public folder
 app.use(express.static(path.join(__dirname, "public")));
 
+// using our defined controller routes
+app.use(router);
+
+
 // Middleware to test connection
 app.use((req, res) => {
   res.render('404');
@@ -31,7 +36,7 @@ app.use((req, res) => {
 // attempting connection to db prior to starting server
 (async () => {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     // Setting the server to listen on the selected PORT and return a confirmation.
     app.listen(PORT, () => {
       console.log(
