@@ -1,7 +1,5 @@
+<h2 class="text-white text-center">Current Posts:</h2>
 <div class="posts-container text-center">
-  <div class="posts-header">
-    <h2 class="text-white">Current Posts:</h2>
-    </div>
   {{#each posts as |post|}}
     <div class="card my-3">
       <div class=" card-header post-header pb-0">
@@ -9,10 +7,9 @@
           <p class="date-text">Posted by {{post.user.user_name}} on {{post.createdAt}}</p>
       </div>
       <div class="card-body">
-
-        <p class="card-text">{{post.description}}</p>
-        <a href="#" class="btn btn-primary">Add Comment</a>
+        <button class="btn btn-secondary viewPostBtn" data-postid="{{post.id}}">View Full Post</button>
       </div>
       </div>
   {{/each}}
 </div>
+<script src="js/main.js"></script>
