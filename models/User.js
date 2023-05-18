@@ -1,6 +1,6 @@
 const sequelize = require("../config/connection");
 const { Model, DataTypes } = require("sequelize");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 class User extends Model {
   static passwordAuth(input) {
@@ -48,8 +48,6 @@ User.init(
         return user;
       },
     },
-  },
-  {
     sequelize,
     freezeTableName: true,
     underscored: true,

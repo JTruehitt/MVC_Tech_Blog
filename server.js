@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Middleware to test connection
 app.use((req, res) => {
-  res.send("Testing");
+  res.render('404');
 });
 
 // attempting connection to db prior to starting server
