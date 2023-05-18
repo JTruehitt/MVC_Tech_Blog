@@ -1,13 +1,36 @@
+<div class="card my-3 text-center">
+  <div class="card-header post-header pb-0">
+    <h5 class="">{{post.title}}</h5>
+    <p class="date-text">Posted by
+      {{post.user.user_name}}
+      on
+      {{post.createdAt}}</p>
+  </div>
+  <div class="card-body">
 
-    <div class="card my-3">
-      <div class=" card-header post-header pb-0">
-          <h5 class="">{{post.title}}</h5>
-          <p class="date-text">Posted by {{post.user.user_name}} on {{post.createdAt}}</p>
-      </div>
-      <div class="card-body">
+    <p class="card-text">{{post.description}}</p>
+  </div>
+  <div class="card-body">
 
-        <p class="card-text">{{post.description}}</p>
-        <a href="#" class="btn btn-primary">Add Comment</a>
-      </div>
-      </div>
-  
+    <a href="#" class="btn btn-primary">Add Comment</a>
+  </div>
+</div>
+<div class="comment-section">
+  <h3 class="text-center text-light">Comments:</h3>
+  <div class="comment-container">
+    {{#if post.comments}}
+      {{#each post.comments}}
+        <div class="card mb-3">
+          <div class="card-header">
+            Comment by {{this.user.user_name}} on {{this.createdAt}}
+          </div>
+          <div class="card-body">
+            <p>{{this.message}}</p>
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      <p>No comments on this post.</p>
+    {{/if}}
+  </div>
+</div>

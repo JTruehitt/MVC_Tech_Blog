@@ -1,6 +1,4 @@
 const viewPostBtns = document.querySelectorAll('.viewPostBtn')
-// const postsContainer = document.querySelector('.posts-container')
-
 
 async function getSinglePost(e) {
     e.preventDefault;
