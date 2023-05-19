@@ -6,11 +6,10 @@ const app = express();
 const PORT = process.env.PORT || 3018;
 
 const router = require('./controllers/index')
-// //! imported models so tables would be synced. check to see if this is needed once routes are established
-// const Models = require('./models')
+const helpers = require('./utils/helpers')
 
 const exphbs = require("express-handlebars");
-const hbs = exphbs.create({});
+const hbs = exphbs.create({ helpers});
 
 // initializing and setting hbs as the view engine
 app.engine("handlebars", hbs.engine);
