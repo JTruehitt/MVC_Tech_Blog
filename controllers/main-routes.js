@@ -59,7 +59,7 @@ router.get('/newpost', checkAuth, (req, res) => {
 
 router.get("/dashboard", checkAuth, async (req, res) => {
   try {
-    const postData = await Post.findAll({ where: { user_id: req.session.id } });
+    const postData = await Post.findAll({ where: { user_id: req.session.user_id } });
     if (!postData) {
       res.status(404).json({ message: `You haven't made any posts.` });
     }

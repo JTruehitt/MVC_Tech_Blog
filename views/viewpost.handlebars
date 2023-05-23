@@ -4,7 +4,7 @@
     <p class="date-text">Posted by
       {{post.user.user_name}}
       on
-      {{post.createdAt}}</p>
+      {{format_date post.createdAt}}</p>
   </div>
   <div class="card-body">
 
@@ -30,7 +30,7 @@
         </div>
       {{/each}}
     {{else}}
-      <p>No comments on this post.</p>
+      <p class="text-center">No comments on this post.</p>
     {{/if}}
   </div>
 </div>
