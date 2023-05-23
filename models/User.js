@@ -3,7 +3,7 @@ const { Model, DataTypes } = require("sequelize");
 const bcrypt = require("bcrypt");
 
 class User extends Model {
-  static passwordAuth(input) {
+  passwordAuth(input) {
     return bcrypt.compareSync(input, this.password);
   }
 }

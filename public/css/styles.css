@@ -6,6 +6,10 @@ body {
 
 /* HOME */
 
+.viewPostBtn:hover, 
+.viewPostBtn:active {
+    background-color: green;
+}
 .date-text {
     font-size: 80%;
 }

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { User, Comment, Post } = require("../models");
+const checkAuth = require('../utils/auth')
 
 // route: /
 // method: GET
@@ -16,7 +17,7 @@ router.get("/", async (req, res) => {
 
     const posts = allPosts.map((post) => post.get({ plain: true }));
 
-    res.status(200).render("home", { posts });
+    res.status(200).render("home", { posts, loggedIn: req.session.loggedIn });
   } catch (err) {
     res.status(500).json({ message: `Error loading data: ${err}` });
   }
@@ -28,26 +29,46 @@ router.get("/", async (req, res) => {
 router.get("/post/:id", async (req, res) => {
   try {
     const postRaw = await Post.findByPk(req.params.id, {
-      include: [{ model: User, attributes: ["user_name"] }, { model: Comment, include: [{ model: User, attributes: ['user_name']}] }],
+      include: [
+        { model: User, attributes: ["user_name"] },
+        {
+          model: Comment,
+          include: [{ model: User, attributes: ["user_name"] }],
+        },
+      ],
     });
     if (!postRaw) {
       res.status(404).render("404");
     }
-    const post = postRaw.get({plain: true})
-    
-    res.status(200).render("viewpost", { post });
+    const post = postRaw.get({ plain: true });
+
+    res.status(200).render("viewpost", { post, loggedIn: req.session.loggedIn });
   } catch (err) {
     res.status(500).json({ message: `Error getting post from database.` });
   }
 });
 
-router.get('/login', ( req, res ) => {
+router.get("/dashboard", checkAuth, async (req, res) => {
+  try {
+    const postData = await Post.findAll({ where: { user_id: req.session.id } });
+    if (!postData) {
+      res.status(404).json({ message: `You haven't made any posts.` });
+    }
+    const posts = postData.map((post) => post.get({ plain: true }));
+    res.status(200).render("dashboard", { posts, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: `Error getting data from db: ${err}` });
+  }
+});
+
+router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect('/');
+    res.redirect("/");
     return;
   }
 
-  res.render('login');
-})
+  res.render("login");
+});
 
 module.exports = router;

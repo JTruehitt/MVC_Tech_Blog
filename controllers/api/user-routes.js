@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 // /api/users
 // post route for sign up
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const userData = await User.create({
       first_name: req.body.first_name,
@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     req.session.save(() => {
       req.session.loggedIn = true;
 
-      req.status(200).json(userData);
+      res.status(200).json(userData);
     });
   } catch (err) {
     console.log(err);
@@ -62,17 +62,18 @@ router.post("/login", async (req, res) => {
 });
 
 // post route for log out
-router.post('/logout', async (req, res ) => {
+router.post("/logout", async (req, res) => {
   try {
     if (req.session.loggedIn) {
-      const session = await req.session.destroy();
-      res.status(200).json({ message: `Successfully logged out!`, session})
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
     } else {
-      res.end()
+      res.status(404).end();
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({message: `Error logging out.`, err})
+    res.status(500).json({ message: `Error logging out.`, err });
   }
 });
 

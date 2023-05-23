@@ -1,1 +1,20 @@
-<h1>DASH</h1>
+{{#if posts}}
+<h2 class="text-white text-center">Current Posts:</h2>
+<div class="posts-container text-center">
+    
+  {{#each posts as |post|}}
+    <div class="card my-3">
+      <div class=" card-header post-header pb-0">
+          <h5 class="">{{post.title}}</h5>
+          <p class="date-text">Posted on {{format_date post.createdAt}}</p>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-secondary viewPostBtn" data-postid="{{post.id}}">View Full Post</button>
+      </div>
+      </div>
+  {{/each}}
+  {{else}}
+  <h5 class="text-center">You haven't made any posts!</h5>
+  {{/if}}
+</div>
+<script src="js/main.js"></script>
