@@ -9,3 +9,7 @@ body {
 .date-text {
     font-size: 80%;
 }
+
+.signup {
+    display: none;
+}
