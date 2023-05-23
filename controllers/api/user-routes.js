@@ -62,3 +62,18 @@ router.post("/login", async (req, res) => {
 });
 
 // post route for log out
+router.post('/logout', async (req, res ) => {
+  try {
+    if (req.session.loggedIn) {
+      const session = await req.session.destroy();
+      res.status(200).json({ message: `Successfully logged out!`, session})
+    } else {
+      res.end()
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({message: `Error logging out.`, err})
+  }
+});
+
+module.exports = router;
