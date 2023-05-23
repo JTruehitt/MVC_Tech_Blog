@@ -48,6 +48,15 @@ router.get("/post/:id", async (req, res) => {
   }
 });
 
+router.get('/newpost', checkAuth, (req, res) => {
+  try {
+    res.status(200).render('createpost')
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: `Error loading post form.`, err})
+  }
+})
+
 router.get("/dashboard", checkAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({ where: { user_id: req.session.id } });

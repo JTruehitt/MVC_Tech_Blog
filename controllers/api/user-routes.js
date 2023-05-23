@@ -48,12 +48,15 @@ router.post("/login", async (req, res) => {
       return;
     }
 
+    const user = userData.get({plain: true})
+
     req.session.save(() => {
       req.session.loggedIn = true;
+      req.session.user_id = user.id;
 
       res
         .status(200)
-        .json({ user: userData, message: "Successfully logged in!" });
+        .json({ user, message: "Successfully logged in!" });
     });
   } catch (err) {
     console.log(err);
