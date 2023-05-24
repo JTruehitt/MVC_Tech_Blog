@@ -48,6 +48,22 @@ router.get("/post/:id", async (req, res) => {
   }
 });
 
+router.get("/post/edit/:id", checkAuth, async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id);
+
+    if (!postData) {
+      res.status(404).json({ message: `No post with that id.` });
+    }
+
+    const post = postData.get({ plain: true });
+    res.status(200).render("editpost", { post, loggedIn: req.session.loggedIn });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: `Error fetching post from db.`, err });
+  }
+});
+
 router.get('/newpost', checkAuth, (req, res) => {
   try {
     res.status(200).render('createpost')

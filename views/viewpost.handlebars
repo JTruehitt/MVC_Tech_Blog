@@ -22,7 +22,7 @@
       {{#each post.comments}}
         <div class="card mb-3">
           <div class="card-header">
-            Comment by {{this.user.user_name}} on {{this.createdAt}}
+            Comment by {{this.user.user_name}} on {{format_date this.createdAt}}
           </div>
           <div class="card-body">
             <p>{{this.message}}</p>

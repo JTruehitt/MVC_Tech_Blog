@@ -16,12 +16,31 @@ router.post("/new", checkAuth, async (req, res) => {
 
     if (!submitted) {
       res.status(404).json({ message: `Error making post.` });
+      return;
     }
-    
+
     res.status(200).redirect("/dashboard");
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: `Error connecting to db: ${err}` });
+  }
+});
+
+router.put("/edit/:id", checkAuth, async (req, res) => {
+  try {
+    const editedPost = await Post.update(req.body, {
+      where: { id: req.params.id },
+    });
+    
+    if (!editedPost) {
+      res.status(404).json({ message: `No post with that id found.` });
+      return;
+    }
+    res.pos
+    res.status(200).json(editedPost);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: `Error updating post on the db.`, err });
   }
 });
 
