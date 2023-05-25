@@ -11,8 +11,18 @@
     <p class="card-text">{{post.description}}</p>
   </div>
   <div class="card-body">
-
-    <a href="#" class="btn btn-primary">Add Comment</a>
+    <form class="form comment-submit">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="What do you think?"
+          id="comment-message"
+        />
+        <button class="btn btn-primary commentSubmitBtn" type="submit" data-postid="{{post.id}}">Add Comment</button>
+      </div>
+    </form>
+    {{! <a href="#" class="btn btn-primary">Add Comment</a> }}
   </div>
 </div>
 <div class="comment-section">
@@ -22,11 +32,17 @@
       {{#each post.comments}}
         <div class="card mb-3">
           <div class="card-header">
-            Comment by {{this.user.user_name}} on {{format_date this.createdAt}}
+            Comment by
+            {{user.user_name}}
+            on
+            {{format_date this.createdAt}}
           </div>
           <div class="card-body">
-            <p>{{this.message}}</p>
+            <p>{{message}}</p>
           </div>
+          {{#if deletable}}
+          <button class="btn btn-danger deleteCommentBtn" data-comment_id="{{id}}">Delete Comment</button>
+          {{/if}}
         </div>
       {{/each}}
     {{else}}

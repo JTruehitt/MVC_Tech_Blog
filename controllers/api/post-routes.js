@@ -36,11 +36,29 @@ router.put("/edit/:id", checkAuth, async (req, res) => {
       res.status(404).json({ message: `No post with that id found.` });
       return;
     }
-    res.pos
+
     res.status(200).json(editedPost);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: `Error updating post on the db.`, err });
+  }
+});
+
+router.delete("/delete/:id", checkAuth, async (req, res) => {
+  try {
+    const post = await Post.findByPk(req.params.id)
+    
+    if (!post) {
+      res.status(404).json({ message: `No post with that id found.` });
+      return;
+    }
+    
+    await post.destroy();
+
+    res.status(200).json({message: `Post successfully deleted.`});
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: `Error deleting post on the db.`, err });
   }
 });
 

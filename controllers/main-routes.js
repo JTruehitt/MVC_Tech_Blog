@@ -42,9 +42,13 @@ router.get("/post/:id", async (req, res) => {
     }
     const post = postRaw.get({ plain: true });
 
-    res.status(200).render("viewpost", { post, loggedIn: req.session.loggedIn });
+    post.comments.forEach((comment) => {
+      comment.deletable = (comment.user_id === req.session.user_id)
+    })
+
+    res.status(200).render("viewpost", { post, loggedIn: req.session.loggedIn, user_id: req.session.user_id });
   } catch (err) {
-    res.status(500).json({ message: `Error getting post from database.` });
+    res.status(500).json({ message: `Error getting post from database.`, err});
   }
 });
 

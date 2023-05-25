@@ -5,7 +5,7 @@ const seedDatabase = async () => {
   await sequelize.sync({ force: true });
 
   // Create users
-  const users = await User.bulkCreate([
+  await User.bulkCreate([
     {
       first_name: "John",
       last_name: "Doe",
@@ -39,7 +39,7 @@ const seedDatabase = async () => {
   ]);
 
   // Create posts
-  const posts = await Post.bulkCreate([
+  await Post.bulkCreate([
     {
       title: "First Post",
       description: "This is the first post",
